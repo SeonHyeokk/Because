@@ -1,73 +1,129 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>BE:CAUSE</title>
+    <style>
+      .centered {
+        width: 1200px;
+        height: 100px;
+        display: flex;
+        margin: auto;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+      }
 
-<head>
-  <title>BE:CAUSE</title>
-  <style>
-    .centered {
-      width: 1200px;
-      height: 100px;
-      display: flex;
-      margin: auto;
-      flex-direction: row;
-      justify-content: center;
-      align-content: stretch;
-    }
+      .centered img {
+        margin-right: 50px;
+      }
 
-    input {
-      width: 598.43px;
-      height: 57.5px;
-    }
+      .article {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px;
+      }
 
-    a:link {
-      color: black;
-      text-decoration: none;
-    }
+      .btn {
+        position: relative;
+        right: 60px;
+        top: 10px;
+        width: 28px;
+        height: 29px;
+      }
+      form input:first-child {
+        width: 598.43px;
+        height: 57.5px;
+        border: 1px solid #00b0f0;
+      }
 
-    a:visited {
-      color: black;
-      text-decoration: none;
-    }
+      a:link {
+        color: black;
+        text-decoration: none;
+      }
 
-    a:hover {
-      color: black;
-      text-decoration: none;
-    }
-  </style>
-</head>
+      a:visited {
+        color: black;
+        text-decoration: none;
+      }
 
-<body>
-  <div class="centered">
-    <div>
-      <img src="static/img/logo.png">
-    </div>
-    <div>
-      <form action="/result" method="get">
-        <input required name="keyword" />
-        <button><img src="static/img/search.png"></button>
-      </form>
-    </div>
-  </div>
-  <h3>  검색어: {{keyword}}</h3>
-  <div style="width: 90%; display: flex;">
-    {% for news in search_result %}
-    <div style="height:500px; width: 30%; margin:20px; box-shadow: 3px 3px 3px 3px gray;">
-      <div style="height:340px; width: 452px; object-fit: contain;">
-        {% if news.image != None %}
-        <a href="{{news.link}}"><img src="{{news.image}}" style="height:340px; width: 452px; object-fit:cover;" /></a>
-        {% endif %}
-        {% if news.image == None %}
-        <a href="{{news.link}}"><img src="static/img/그룹 13.png" /></a>
-        {% endif %}
+      a:hover {
+        color: black;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="centered">
+      <div>
+        <img src="../static/logo.png" />
       </div>
-      <div style="height:160px; width:452px">
-        <a href="{{news.link}}">
-          <h3>{{news.title}}</h3>
-        </a>
+      <div>
+        <form action="/result" method="get">
+          <input required name="keyword" />
+          <input
+            class="btn"
+            type="image"
+            src="../static/search.png"
+            alt="제출"
+          />
+        </form>
       </div>
     </div>
-    {% endfor %}
-  </div>
-</body>
-
+    <h3>검색어: {{keyword}}</h3>
+    <div class="article">
+      {% for news in search_result %}
+      <div
+        class="article-area"
+        style="
+          height: 500px;
+          width: 452px;
+          margin: 20px;
+          box-shadow: 3px 3px 3px 3px gray;
+        "
+      >
+        <div>
+          <div
+            style="
+              height: 340px;
+              width: 452px;
+              max-width: 150%;
+              object-fit: contain;
+            "
+          >
+            {% if news.image != None %}
+            <a href="{{news.link}}"
+              ><img
+                src="{{news.image}}"
+                style="
+                  height: 340px;
+                  width: 452px;
+                  max-width: 150%;
+                  object-fit: cover;
+                "
+            /></a>
+            {% else %}
+            <a href="{{news.link}}"
+              ><img
+                src="../static/default.png"
+                style="
+                  height: 340px;
+                  width: 452px;
+                  max-width: 150%;
+                  object-fit: cover;
+                "
+            /></a>
+            {% endif %}
+          </div>
+          <div style="height: 160px; width: 452px">
+            <a href="{{news.link}}">
+              <h3>{{news.title}}</h3>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
 </html>
