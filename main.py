@@ -1,3 +1,6 @@
+import os
+import sys
+import urllib.request
 import requests
 import json
 from flask import Flask, render_template, request
@@ -9,7 +12,16 @@ app = Flask("BE:CAUSE")
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    categories = ["정치", "경제", "사회", "생활/문화", "세계", "IT/과학"]
+    headline = news.get_headline()
+    headline_list = []
+    for article in headline:
+        data = {}
+        data["title"] = article[0]
+        data["link"] = article[1]
+        data["image"] = news.get_photo(data["link"])
+        headline_list.append(data)
+    return render_template("index.html", headline=headline_list, categories=categories, enumerate=enumerate)
 
 
 @app.route("/result")

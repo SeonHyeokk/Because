@@ -4,6 +4,26 @@ import urllib.request
 import json
 from bs4 import BeautifulSoup
 import requests
+import random
+
+# 카테고리별(6개)로 헤드라인 기사를 하나씩 랜덤으로 뽑아줌
+
+
+def get_headline():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'}
+    base_url = "https://news.naver.com/main/main.nhn?mode=LSD&mid=shm&sid1="
+    data = []
+    for cate in ['100', '101', '102', '103', '104', '105']:
+        url = base_url + cate
+        r = requests.get(url, headers=headers)
+        soup = BeautifulSoup(r.text, "html.parser")
+        title_link = [(item.find("a").text, item.find("a")['href'])
+                      for item in soup.find_all("div", "cluster_text")]
+        target = title_link[random.randrange(len(title_link))]
+        data.append(target)
+    return data
+
 
 ### input ###
 # query: 검색할 단어(str)
@@ -12,8 +32,6 @@ import requests
 # sort: 정렬 기준 ("sim" : 유사도순, "date": 날짜순)
 
 # output: 뉴스 데이터가 저장된 딕셔너리
-
-
 def get_news_data(query, display=10, start=1, sort="sim"):
     client_id = "8r5zeQfBuknAG9Lp9zLJ"
     client_secret = "DXCG3x9bIf"

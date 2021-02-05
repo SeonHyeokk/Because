@@ -13,5 +13,17 @@
       />
       <button>Search</button>
     </form>
+    <section>
+      <h3>HOT TOPIC</h3>
+      <hr />
+      {% for i, news in enumerate(headline) %}
+      <h3>{{categories[i]}}</h3>
+      {% if news.image != None %}
+      <a href="{{news.link}}"><img src="{{news.image}}" /></a>
+      {% endif %}
+      <a href="{{news.link}}"><h3>{{news.title}}</h3></a>
+      <hr />
+      {% endfor %}
+    </section>
   </body>
 </html>
