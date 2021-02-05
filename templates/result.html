@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BE:CAUSE</title>
+  </head>
+  <body>
+    <h1>BE:CAUSE | RESULTS</h1>
+    <h3>{{keyword}}</h3>
+    {% for news in search_result %}
+    <a href="{{news.link}}"><h3>{{news.title}}</h3></a>
+    {% if news.image != None %}
+    <a href="{{news.link}}"><img src="{{news.image}}" /></a>
+    {% endif %}
+    <p>{{news.description}}</p>
+    <hr />
+    {% endfor %}
+  </body>
+</html>
