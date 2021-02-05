@@ -1,29 +1,90 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style>
+      header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+      }
+
+      header img {
+        margin-bottom: 50px;
+      }
+      .btn {
+        position: relative;
+        right: 60px;
+        top: 10px;
+        width: 28px;
+        height: 29px;
+      }
+
+      input {
+        width: 598px;
+        height: 58px;
+      }
+
+      article {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px;
+        font-size: 12px;
+      }
+
+      article img {
+        width: 452px;
+        height: 290px;
+      }
+
+      .bottom-box {
+        display: flex;
+        justify-content: space-between;
+        padding-right: 50px;
+      }
+
+      section > h3 {
+        display: inline;
+        font-size: 30px;
+      }
+      section > h3:first-child {
+        color: #00b0f0;
+      }
+    </style>
     <title>BE:CAUSE</title>
   </head>
   <body>
-    <h1>BE:CAUSE</h1>
-    <form action="/result" method="get">
-      <input
-        placeholder="보고 싶은 뉴스 키워드를 검색하세요"
-        required
-        name="keyword"
-      />
-      <button>Search</button>
-    </form>
+    <header>
+      <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" /></a>
+      <form action="/result" method="get">
+        <input
+          placeholder="보고 싶은 뉴스 키워드를 검색하세요"
+          required
+          name="keyword"
+        />
+        <input class="btn" type="image" src="../static/search.png" alt="제출" />
+      </form>
+    </header>
     <section>
-      <h3>HOT TOPIC</h3>
+      <h3>HOT</h3>
+      <h3>TOPIC</h3>
       <hr />
-      {% for i, news in enumerate(headline) %}
-      <h3>{{categories[i]}}</h3>
-      {% if news.image != None %}
-      <a href="{{news.link}}"><img src="{{news.image}}" /></a>
-      {% endif %}
-      <a href="{{news.link}}"><h3>{{news.title}}</h3></a>
-      <hr />
-      {% endfor %}
+      <article>
+        {% for i, news in enumerate(headline) %}
+        <div>
+          {% if news.image != None %}
+          <a href="{{news.link}}"><img src="{{news.image}}" /></a>
+          {% else %}
+          <a href="{{news.link}}"><img src="../static/default.png" /></a>
+          {% endif %}
+          <div class="bottom-box">
+            <h3>{{categories[i]}}</h3>
+            <a href="{{news.link}}"><h3>{{news.title}}</h3></a>
+          </div>
+        </div>
+        {% endfor %}
+      </article>
     </section>
   </body>
 </html>
