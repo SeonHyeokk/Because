@@ -20,7 +20,7 @@ SW중심대학 공동 해커톤 BECAUSE
 
 ## 팀 구성원
 
-팀장: 김선혁(SW개발)/선문대학교
+- 팀장: 김선혁(SW개발)/선문대학교
 
 팀원
 
@@ -37,6 +37,7 @@ SW중심대학 공동 해커톤 BECAUSE
 
 ```
 git clone https://github.com/SeonHyeokk/Because.git
+cd Because
 ```
 
 - 패키지 설치
