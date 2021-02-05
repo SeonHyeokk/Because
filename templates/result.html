@@ -1,18 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>BE:CAUSE</title>
-  </head>
-  <body>
-    <h1>BE:CAUSE | RESULTS</h1>
-    <h3>{{keyword}}</h3>
+
+<head>
+  <title>BE:CAUSE</title>
+  <style>
+    .centered {
+      width: 1200px;
+      height: 100px;
+      display: flex;
+      margin: auto;
+      flex-direction: row;
+      justify-content: center;
+      align-content: stretch;
+    }
+
+    input {
+      width: 598.43px;
+      height: 57.5px;
+    }
+
+    a:link {
+      color: black;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: black;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: black;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="centered">
+    <div>
+      <img src="static/img/logo.png">
+    </div>
+    <div>
+      <form action="/result" method="get">
+        <input required name="keyword" />
+        <button><img src="static/img/search.png"></button>
+      </form>
+    </div>
+  </div>
+  <h3>  검색어: {{keyword}}</h3>
+  <div style="width: 90%; display: flex;">
     {% for news in search_result %}
-    <a href="{{news.link}}"><h3>{{news.title}}</h3></a>
-    {% if news.image != None %}
-    <a href="{{news.link}}"><img src="{{news.image}}" /></a>
-    {% endif %}
-    <p>{{news.description}}</p>
-    <hr />
+    <div style="height:500px; width: 30%; margin:20px; box-shadow: 3px 3px 3px 3px gray;">
+      <div style="height:340px; width: 452px; object-fit: contain;">
+        {% if news.image != None %}
+        <a href="{{news.link}}"><img src="{{news.image}}" style="height:340px; width: 452px; object-fit:cover;" /></a>
+        {% endif %}
+        {% if news.image == None %}
+        <a href="{{news.link}}"><img src="static/img/그룹 13.png" /></a>
+        {% endif %}
+      </div>
+      <div style="height:160px; width:452px">
+        <a href="{{news.link}}">
+          <h3>{{news.title}}</h3>
+        </a>
+      </div>
+    </div>
     {% endfor %}
-  </body>
+  </div>
+</body>
+
 </html>
